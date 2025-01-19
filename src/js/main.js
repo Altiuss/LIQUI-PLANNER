@@ -11,8 +11,8 @@ const haushaltsbuch = {
         let neuer_eintrag = new Map();
         neuer_eintrag.set("titel", prompt("Titel:").trim());
         neuer_eintrag.set("typ", prompt("Typ (Einnahme oder Ausgabe):").trim());
-        neuer_eintrag.set("betrag", this.betrag_verarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen):")).trim());
-        neuer_eintrag.set("datum", new Date(prompt("Datum (jjjj.mm.tt):")).trim());
+        neuer_eintrag.set("betrag", this.betrag_verarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen):").trim()));
+        neuer_eintrag.set("datum", this.datum_verarbeiten(prompt("Datum (jjjj.mm.tt):").trim()));
         neuer_eintrag.set("teimestamp", Date.now());
         this.eintraege.push(neuer_eintrag);
 
@@ -33,6 +33,26 @@ const haushaltsbuch = {
 
     betrag_validieren(betrag) {
         if (betrag.match(/^\d+(?:(?:,|\.)\d\d?)?$/) !== null) {
+           return true; 
+        } else {
+            return false;
+        }
+    },
+
+    datum_verarbeiten(datum) {
+
+        if (this.datum_validieren(datum)) {
+            return new Date(datum);
+        } else {
+            console.log(`Ungultige Datumsformat: ${datum} `);
+            return false;
+        }
+
+
+    },
+
+    datum_validieren(datum) {
+        if (datum.match(/^\d{4}\.\d{2}\.\d{2}$/) !== null) {
            return true; 
         } else {
             return false;
