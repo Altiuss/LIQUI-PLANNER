@@ -9,19 +9,37 @@ const haushaltsbuch = {
 
     eintrag_erfassen() {
         let neuer_eintrag = new Map();
-        neuer_eintrag.set("titel", prompt("Titel:"));
-        neuer_eintrag.set("typ", prompt("Typ (Einnahme oder Ausgabe):"));
-        neuer_eintrag.set("betrag", this.betrag_verarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen):")));
-        neuer_eintrag.set("datum", new Date(prompt("Datum (jjjj.mm.tt):")));
+        neuer_eintrag.set("titel", prompt("Titel:").trim());
+        neuer_eintrag.set("typ", prompt("Typ (Einnahme oder Ausgabe):").trim());
+        neuer_eintrag.set("betrag", this.betrag_verarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen):")).trim());
+        neuer_eintrag.set("datum", new Date(prompt("Datum (jjjj.mm.tt):")).trim());
         neuer_eintrag.set("teimestamp", Date.now());
         this.eintraege.push(neuer_eintrag);
 
     },
 
+
     betrag_verarbeiten(betrag) {
-        return parseFloat(betrag.replace(",", ".")) * 100;
+
+        if (this.betrag_validieren(betrag)) {
+            return parseFloat(betrag.replace(",", ".")) * 100;
+        } else {
+            console.log(`Ungultige Betrag: ${betrag} €`);
+            return false;
+        }
+
 
     },
+
+    betrag_validieren(betrag) {
+        if (betrag.match(/^\d+(?:(?:,|\.)\d\d?)?$/) !== null) {
+           return true; 
+        } else {
+            return false;
+        }
+    },
+
+   
 
     eintraege_sortieren() {
         this.eintraege.sort(function (a, b) {
@@ -93,7 +111,7 @@ const haushaltsbuch = {
             `Einnahmen: ${(this.gesamtbilanz.get("einnahmen") / 100).toFixed(2)} €\n`
             + `Ausgaben: ${(this.gesamtbilanz.get("ausgaben") / 100).toFixed(2)} €\n`
             + `Bilanz: ${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2)} €\n`
-            + `Bilanz ist positiv: ${(this.gesamtbilanz.get("bilanz") / 100)>= 0}`
+            + `Bilanz ist positiv: ${(this.gesamtbilanz.get("bilanz") / 100) >= 0}`
         );
     },
 
