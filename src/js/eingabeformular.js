@@ -3,11 +3,28 @@
 
 const eingabeformular = {
 
+
+
+    formulardaten_holen(e) {
+
+        let typ = e.target.elements.ausgabe.checked ? "ausgabe" : "einnahme";
+
+        return {
+            titel: e.target.elements.titel.value,
+            betrag: e.target.elements.betrag.value,
+            typ: typ,
+            datum: e.target.elements.datum.valueAsDate
+        }
+    },
+
     absenden_event_hinzufugen(eingabeformular) {
-          eingabeformular.querySelector("#eingabeformular").addEventListener("submit", e => {
+        eingabeformular.querySelector("#eingabeformular").addEventListener("submit", e => {
             e.preventDefault();
-            
-          });
+            console.log(e);
+            let formulardaten = this.formulardaten_holen(e);
+            console.log(formulardaten);
+
+        });
     },
 
     html_generieren() {
@@ -45,7 +62,7 @@ const eingabeformular = {
             <button class="standard" type="submit" form="eingabeformular">Hinzufügen</button>
         </div>`;
 
-        this.absenden_event_hinzufugen(eingabeformular); 
+        this.absenden_event_hinzufugen(eingabeformular);
 
         return eingabeformular;
     },
