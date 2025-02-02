@@ -6,22 +6,30 @@ const eingabeformular = {
 
 
     formulardaten_holen(e) {
-
-        let typ = e.target.elements.ausgabe.checked ? "ausgabe" : "einnahme";
-
         return {
             titel: e.target.elements.titel.value,
             betrag: e.target.elements.betrag.value,
-            typ: typ,
+            einnahme: e.target.elements.einnahme.checked,
+            ausgabe: e.target.elements.ausgabe.checked,
             datum: e.target.elements.datum.valueAsDate
         }
+    },
+
+    formulardaten_verarbeiten(formulardaten) {
+        return {
+            titel: formulardaten.titel.trim(),
+            typ: formulardaten.ausgabe.checked ? "ausgabe" : "einnahme",
+            betrag: parseFloat(formulardaten.betrag) * 100,
+            datum: formulardaten.datum
+        }
+
     },
 
     absenden_event_hinzufugen(eingabeformular) {
         eingabeformular.querySelector("#eingabeformular").addEventListener("submit", e => {
             e.preventDefault();
             console.log(e);
-            let formulardaten = this.formulardaten_holen(e);
+            let formulardaten = this.formulardaten_verarbeiten(this.formulardaten_holen(e));
             console.log(formulardaten);
 
         });
