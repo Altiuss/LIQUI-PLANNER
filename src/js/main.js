@@ -1,9 +1,9 @@
 "use strict";
 
 
-
-haushaltsbuch.eintrag_hinzufuegen();
-console.log(haushaltsbuch);
+eingabeformular.anzeigen();
+// haushaltsbuch.eintrag_hinzufuegen();
+// console.log(haushaltsbuch);
 
 
 
