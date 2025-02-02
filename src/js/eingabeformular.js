@@ -18,10 +18,28 @@ const eingabeformular = {
     formulardaten_verarbeiten(formulardaten) {
         return {
             titel: formulardaten.titel.trim(),
-            typ: formulardaten.ausgabe.checked ? "ausgabe" : "einnahme",
+            typ: formulardaten.ausgabe ? "ausgabe" : "einnahme",
             betrag: parseFloat(formulardaten.betrag) * 100,
             datum: formulardaten.datum
         }
+
+    },
+
+    formulardaten_validieren(formulardaten) {
+        let fehler = [];
+        if (formulardaten.titel === "") {
+            fehler.push("Titel");
+        }
+        if (formulardaten.typ === undefined || formulardaten.typ.match(/^(?:einnahme|ausgabe)$/) === null) {
+           fehler.push("Typ");
+        }
+        if (isNaN(formulardaten.betrag)) {
+            fehler.push("Betrag");
+        }
+        if (formulardaten === null) {
+           fehler.push("Datum");
+        }
+        return fehler;
 
     },
 
@@ -31,6 +49,8 @@ const eingabeformular = {
             console.log(e);
             let formulardaten = this.formulardaten_verarbeiten(this.formulardaten_holen(e));
             console.log(formulardaten);
+            let formulardaten_fehler = this.formulardaten_validieren(formulardaten);
+            console.log(formulardaten_fehler);
 
         });
     },
@@ -46,7 +66,7 @@ const eingabeformular = {
             <div class="titel-typ-eingabe-gruppe">
                 <label for="titel">Titel</label>
                 <input type="text" id="titel" form="eingabeformular" name="titel" placeholder="z.B. Einkaufen" size="10"
-                    title="Titel des Eintrags">
+                    title="Titel des Eintrags" required>
                 <input type="radio" id="einnahme" name="typ" value="einnahme" form="eingabeformular"
                     title="Typ des Eintrags">
                 <label for="einnahme" title="Typ des Eintrags">Einnahme</label>
@@ -59,10 +79,10 @@ const eingabeformular = {
             <div class="betrag-datum-eingabe-gruppe">
                 <label for="betrag">Betrag</label>
                 <input type="number" id="betrag" name="betrag" form="eingabeformular" placeholder="z.B. 10,42" size="10"
-                    step="0.01" title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)">
+                    step="0.01" title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)" required>
                 <label for="datum">Datum</label>
                 <input type="date" id="datum" name="datum" form="eingabeformular" placeholder="jjjj-mm-tt" size="10"
-                    title="Datum des Eintrags (Format: jjjj-mm-tt)">
+                    title="Datum des Eintrags (Format: jjjj-mm-tt)" required>
             </div>
         </div>
         <!-- Absenden-Button -->
