@@ -3,8 +3,6 @@
 
 const eingabeformular = {
 
-
-
     formulardaten_holen(e) {
         return {
             titel: e.target.elements.titel.value,
@@ -31,16 +29,25 @@ const eingabeformular = {
             fehler.push("Titel");
         }
         if (formulardaten.typ === undefined || formulardaten.typ.match(/^(?:einnahme|ausgabe)$/) === null) {
-           fehler.push("Typ");
+            fehler.push("Typ");
         }
         if (isNaN(formulardaten.betrag)) {
             fehler.push("Betrag");
         }
         if (formulardaten === null) {
-           fehler.push("Datum");
+            fehler.push("Datum");
         }
         return fehler;
 
+    },
+
+    // datum_aktualisieren = () => document.querySelector("#datum")?.valueAsDate = new Date();
+
+    datum_aktualisieren() {
+        let datums_input = document.querySelector("#datum");
+        if (datums_input !== null) {
+            datums_input.valueAsDate = new Date();
+        }
     },
 
     absenden_event_hinzufugen(eingabeformular) {
@@ -49,8 +56,16 @@ const eingabeformular = {
             console.log(e);
             let formulardaten = this.formulardaten_verarbeiten(this.formulardaten_holen(e));
             console.log(formulardaten);
-            let formulardaten_fehler = this.formulardaten_validieren(formulardaten);
-            console.log(formulardaten_fehler);
+            let formular_fehler = this.formulardaten_validieren(formulardaten);
+            console.log(formular_fehler);
+
+            if (formular_fehler.length === 0) {
+                haushaltsbuch.eintrag_hinzufuegen(formulardaten);
+                e.target.reset();
+                this.datum_aktualisieren();
+            } else {
+
+            }
 
         });
     },
@@ -97,7 +112,7 @@ const eingabeformular = {
 
     anzeigen() {
         document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.html_generieren());
-
+        this.datum_aktualisieren();
     }
 
 };
