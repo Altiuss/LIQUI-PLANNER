@@ -12,9 +12,23 @@ const haushaltsbuch = {
         neuer_eintrag.set("typ", formulardaten.typ);
         neuer_eintrag.set("datum", formulardaten.datum);
         neuer_eintrag.set("timestamp", Date.now());
-        neuer_eintrag.set("timestamp", new Date().toISOString());
         this.eintraege.push(neuer_eintrag);
         this.eintraege_sortieren();
+        this.eintraege_anzeigen();
+        this.gesamtbilanz_erstellen();
+        this.gesamtbilanz_anzeigen();
+    },
+
+    eintrag_entfernen(timestamp) {
+        let start_index;
+        for (let i = 0; i < this.eintraege.length; i++) {
+            if (this.eintraege[i].get("timestamp") === parseInt(timestamp)) {
+                console.log(this.eintraege[i].get("timestamp"))
+                start_index = i;
+                break;
+            }
+        }
+        this.eintraege.splice(start_index, 1);
         this.eintraege_anzeigen();
         this.gesamtbilanz_erstellen();
         this.gesamtbilanz_anzeigen();
@@ -31,7 +45,6 @@ const haushaltsbuch = {
                 return 0;
             }
         })
-
     },
 
 
@@ -73,8 +86,18 @@ const haushaltsbuch = {
         icon.setAttribute("class", "fas fa-trash");
         button.insertAdjacentElement("afterbegin", icon);
 
+        this.eintrag_entfernen_event_hinzufugen(listenPunkt);
+
         return listenPunkt;
 
+    },
+
+    eintrag_entfernen_event_hinzufugen(listenPunkt) {
+        listenPunkt.querySelector(".entfernen-button").addEventListener("click", e => {
+            let timestamp = e.target.parentElement.getAttribute("data-timestamp");
+            console.log(timestamp)
+            this.eintrag_entfernen(timestamp);
+        })
     },
 
     eintraege_anzeigen() {

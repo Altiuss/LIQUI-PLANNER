@@ -53,11 +53,9 @@ const eingabeformular = {
     absenden_event_hinzufugen(eingabeformular) {
         eingabeformular.querySelector("#eingabeformular").addEventListener("submit", e => {
             e.preventDefault();
-            console.log(e);
             let formulardaten = this.formulardaten_verarbeiten(this.formulardaten_holen(e));
-            console.log(formulardaten);
             let formular_fehler = this.formulardaten_validieren(formulardaten);
-            console.log(formular_fehler);
+
 
             if (formular_fehler.length === 0) {
                 haushaltsbuch.eintrag_hinzufuegen(formulardaten);
@@ -101,9 +99,9 @@ const eingabeformular = {
     fehlerbox_entfernen() {
         let bestehende_fehlerbox = document.querySelector(".fehlerbox");
         if (bestehende_fehlerbox !== null) {
-           bestehende_fehlerbox.remove();
+            bestehende_fehlerbox.remove();
         }
-},
+    },
 
     html_generieren() {
         let eingabeformular = document.createElement("section");
