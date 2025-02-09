@@ -28,9 +28,6 @@ const eingabeformular = {
         if (formulardaten.titel === "") {
             fehler.push("Titel");
         }
-        if (formulardaten.typ === undefined || formulardaten.typ.match(/^(?:einnahme|ausgabe)$/) === null) {
-            fehler.push("Typ");
-        }
         if (isNaN(formulardaten.betrag)) {
             fehler.push("Betrag");
         }
@@ -144,8 +141,11 @@ const eingabeformular = {
     },
 
     anzeigen() {
-        document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.html_generieren());
-        this.datum_aktualisieren();
+        let navigationsleiste = document.querySelector("#navigationsleiste");
+        if (navigationsleiste !== null) {
+            navigationsleiste.insertAdjacentElement("afterend", this.html_generieren());
+            this.datum_aktualisieren();
+        }
     }
 
 };

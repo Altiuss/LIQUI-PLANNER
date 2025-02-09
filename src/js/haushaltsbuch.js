@@ -37,13 +37,7 @@ const haushaltsbuch = {
 
     eintraege_sortieren() {
         this.eintraege.sort((a, b) => {
-            if (a.get("datum") > b.get("datum")) {
-                return -1;
-            } else if (a.get("datum") < b.get("datum")) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return a.get("datum") > b.get("datum") ? -1 : a.get("datum") < b.get("datum") ? 1 : 0;
         })
     },
 
@@ -52,11 +46,7 @@ const haushaltsbuch = {
     html_eintrag_generieren(eintrag) {
 
         let listenPunkt = document.createElement("li");
-        if (eintrag.get("typ") === "einnahme") {
-            listenPunkt.setAttribute("class", "einnahme");
-        } else if (eintrag.get("typ") === "ausgabe") {
-            listenPunkt.setAttribute("class", "ausgabe");
-        }
+        eintrag.get("typ") === "einnahme" ? listenPunkt.setAttribute("class", "einnahme") : listenPunkt.setAttribute("class", "ausgabe");
         listenPunkt.setAttribute("data-timestamp", eintrag.get("timestamp"));
 
         let datum = document.createElement("span");
@@ -95,7 +85,6 @@ const haushaltsbuch = {
     eintrag_entfernen_event_hinzufugen(listenPunkt) {
         listenPunkt.querySelector(".entfernen-button").addEventListener("click", e => {
             let timestamp = e.target.parentElement.getAttribute("data-timestamp");
-            console.log(timestamp)
             this.eintrag_entfernen(timestamp);
         })
     },
@@ -103,13 +92,10 @@ const haushaltsbuch = {
     eintraege_anzeigen() {
 
         document.querySelectorAll(".monatsliste ul").forEach(eintragsliste => eintragsliste.remove());
-
         let eintragsliste = document.createElement("ul");
         this.eintraege.forEach(eintrag =>
             eintragsliste.insertAdjacentElement("beforeend", this.html_eintrag_generieren(eintrag)));
-
         document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
-
     },
 
     gesamtbilanz_erstellen() {
@@ -170,11 +156,7 @@ const haushaltsbuch = {
         bilanz_titel.textContent = "Bilanz";
         bilanz_zeile.insertAdjacentElement("afterbegin", bilanz_titel);
         let bilanz_betrag = document.createElement("span");
-        if (this.gesamtbilanz.get("bilanz") >= 0) {
-            bilanz_betrag.setAttribute("class", "positiv");
-        } else if (this.gesamtbilanz.get("bilanz") < 0) {
-            bilanz_betrag.setAttribute("class", "negativ");
-        }
+        this.gesamtbilanz.get("bilanz") >= 0 ? bilanz_betrag.setAttribute("class", "positiv") : bilanz_betrag.setAttribute("class", "negativ");
         bilanz_betrag.textContent = `${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2).replace(/\./, ",")} €`;
         bilanz_zeile.insertAdjacentElement("beforeend", bilanz_betrag);
         gesamtbilanz.insertAdjacentElement("beforeend", bilanz_zeile);
