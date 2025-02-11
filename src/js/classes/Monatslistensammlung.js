@@ -3,6 +3,6 @@
 // <section id="monatslisten">
 //     </section>
 
-class Monatslistenammlung {
+class Monatslistensammlung {
 
 };
