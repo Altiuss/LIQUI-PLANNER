@@ -57,52 +57,19 @@ class Eingabeformular {
             e.preventDefault();
             let formulardaten = this._formulardaten_verarbeiten(this._formulardaten_holen(e));
             let formular_fehler = this._formulardaten_validieren(formulardaten);
-
-
             if (formular_fehler.length === 0) {
                 haushaltsbuch.eintrag_hinzufuegen(formulardaten);
-                this._fehlerbox_entfernen();
-                e.target.reset();
-                this._datum_aktualisieren();
-            } else {
-                this._fehlerbox_entfernen();
-                this._fehlerbox_anzeigen(formular_fehler);
-            }
-
-        });
-    }
-
-    _html_fehlerbox_generieren(formular_fehler) {
-        let fehlerbox = document.createElement("div");
-        fehlerbox.setAttribute("class", "fehlerbox");
-
-        let fehlerText = document.createElement("span");
-        fehlerText.textContent = "Es gibt Fehler in folgenden Eingabefelddern:";
-        fehlerbox.insertAdjacentElement("afterbegin", fehlerText);
-
-        let fehlerListe = document.createElement("ul");
-        formular_fehler.forEach(fehler => {
-            let fehlerlistepunkt = document.createElement("li");
-            fehlerlistepunkt.textContent = fehler;
-            fehlerListe.insertAdjacentElement("beforeend", fehlerlistepunkt);
-        });
-        fehlerbox.insertAdjacentElement("beforeend", fehlerListe);
-
-        return fehlerbox;
-    }
-
-    _fehlerbox_anzeigen(formular_fehler) {
-        let eingabeformular_container = document.querySelector("#eingabeformular-container");
-        if (eingabeformular_container !== null) {
-            eingabeformular_container.insertAdjacentElement("afterbegin", this._html_fehlerbox_generieren(formular_fehler));
-        }
-    }
-
-    _fehlerbox_entfernen() {
-        let bestehende_fehlerbox = document.querySelector(".fehlerbox");
-        if (bestehende_fehlerbox !== null) {
-            bestehende_fehlerbox.remove();
-        }
+                let bestehende_fehlerbox = document.querySelector(".fehlerbox");
+                if (bestehende_fehlerbox !== null) {
+                    bestehende_fehlerbox.remove();
+                }
+                    e.target.reset();
+                    this._datum_aktualisieren();
+                } else {
+                    let fehler = new Fehler("Folgende Felder wurden nicht korrekt ausgefüllt:", formular_fehler);
+                    fehler.anzeigen();
+                }
+            });
     }
 
     _html_generieren() {
