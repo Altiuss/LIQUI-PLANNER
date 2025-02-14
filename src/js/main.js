@@ -9,4 +9,5 @@ eingabeformular.anzeigen();
 
 
 let haushaltsbuch = new Haushaltsbuch();
+haushaltsbuch.anzeigen();
 

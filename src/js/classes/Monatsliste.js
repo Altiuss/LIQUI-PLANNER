@@ -24,9 +24,39 @@ class Monatsliste {
 
     }
 
+    monat() {
+        return this._monat;
+    }
+
+    jahr() {
+        return this._jahr;
+    }
+
+    eintrag_hinzufuegen(eintrag) {
+        this._eintraege.push(eintrag);
+    }
+
+    // _eintraege_sortieren() {
+    //     this._eintraege.sort((a, b) => {
+    //         return a.datum() > b.datum() ? -1 : a.datum() < b.datum() ? 1 : 0;
+    //     })
+    // }
+
+
+    // _eintraege_anzeigen() {
+
+    //     document.querySelectorAll(".monatsliste ul").forEach(eintragsliste => eintragsliste.remove());
+    //     let eintragsliste = document.createElement("ul");
+    //     this._eintraege.forEach(eintrag =>
+    //         eintragsliste.insertAdjacentElement("beforeend", eintrag.html()));
+    //     document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
+    // }
+
+
+
     _html_generieren() {
-        
-     }
+
+    }
 
 
 };

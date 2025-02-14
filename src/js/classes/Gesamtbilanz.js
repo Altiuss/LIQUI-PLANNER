@@ -7,7 +7,6 @@ class Gesamtbilanz {
         this._ausgaben = 0;
         this._bilanz = 0;
         this._html = this._html_generieren();
-        this._anzeigen();
     }
 
 
@@ -24,13 +23,13 @@ class Gesamtbilanz {
                 case "ausgabe":
                     this._ausgaben = this._ausgaben + eintrag.betrag();
                     this._bilanz = this._bilanz - eintrag.betrag();
-                     break;
+                    break;
                 default: console.log(`Der Typ "${eintrag.typ()}" ist nicht bekannt.`);
                     break;
             }
         });
         this._html = this._html_generieren();
-        this._anzeigen();
+        this.anzeigen();
     }
 
 
@@ -79,7 +78,7 @@ class Gesamtbilanz {
 
     }
 
-    _anzeigen() {
+    anzeigen() {
 
         let gesamtbilanz = document.querySelector("#gesamtbilanz");
         if (gesamtbilanz !== null) {
