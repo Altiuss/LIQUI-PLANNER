@@ -23,14 +23,16 @@ class Monatslistensammlung {
          }
        });
        if (!monatsliste_vorhanden) {
-        this._monatsliste_hinzufuegen();
+        this._monatsliste_hinzufuegen(eintragsjahr, eintragsmonat, eintrag);
 
        }
     }
 
-    _monatsliste_hinzufuegen() {
-
-
+    _monatsliste_hinzufuegen(jahr, monat, eintrag) {
+    
+     let neue_monatsliste = new Monatsliste(jahr, monat);
+     neue_monatsliste.eintrag_hinzufuegen(eintrag);
+     this._monatslisten.push(neue_monatsliste);
     }
 
     _html_generieren() {
