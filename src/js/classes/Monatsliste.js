@@ -31,11 +31,22 @@ class Monatsliste {
         this._aktualisieren();
     }
 
-    // _eintraege_sortieren() {
-    //     this._eintraege.sort((a, b) => {
-    //         return a.datum() > b.datum() ? -1 : a.datum() < b.datum() ? 1 : 0;
-    //     })
-    // }
+    _eintraege_sortieren() {
+        this._eintraege.sort((a, b) => {
+            if (a.datum() > b.datum()) {
+                return -1;
+            } else if (a.datum() < b.datum()) {
+                return 1;
+            } else {
+                if (a.timestamp() > b.timestamp()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+
+        })
+    }
 
     _html_generieren() {
 
@@ -74,6 +85,7 @@ class Monatsliste {
     }
 
     _aktualisieren() {
+        this._eintraege_sortieren();
         this._html = this._html_generieren();
     }
 
