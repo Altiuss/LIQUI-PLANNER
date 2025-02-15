@@ -1,7 +1,5 @@
 "use strict";
 
-// <section id="monatslisten">
-//     </section>
 
 class Monatslistensammlung {
 
@@ -15,7 +13,6 @@ class Monatslistensammlung {
         let eintragsmonat = eintrag.datum().toLocaleString("de-DE", { month: "numeric" });
         let eintragsjahr = eintrag.datum().toLocaleString("de-DE", { year: "numeric" });
         let monatsliste_vorhanden = false;
-
         this._monatslisten.forEach(monatsliste => {
             if (eintragsmonat === monatsliste.monat() && eintragsjahr === monatsliste.jahr()) {
                 monatsliste.eintrag_hinzufuegen(eintrag);
@@ -24,8 +21,8 @@ class Monatslistensammlung {
         });
         if (!monatsliste_vorhanden) {
             this._monatsliste_hinzufuegen(eintragsjahr, eintragsmonat, eintrag);
-
         }
+        this._aktualisieren();
     }
 
     _monatsliste_hinzufuegen(jahr, monat, eintrag) {
@@ -50,8 +47,13 @@ class Monatslistensammlung {
 
     }
 
-    anzeigen() {
+    _aktualisieren() {
+        this._html = this._html_generieren();
+        this.anzeigen();
 
+    }
+
+    anzeigen() {
         let eingabeformular_container = document.querySelector("#eingabeformular-container")
         let monatslistensammlung = document.querySelector("#monatslisten");
         if (eingabeformular_container !== null) {

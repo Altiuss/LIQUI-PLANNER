@@ -4,7 +4,7 @@ class Haushaltsbuch {
 
     constructor() {
         this._eintraege = [];
-        this.monatslistensammlung = new Monatslistensammlung();
+        this._monatslistensammlung = new Monatslistensammlung();
         this._gesamtbilanz = new Gesamtbilanz();
     }
 
@@ -16,7 +16,7 @@ class Haushaltsbuch {
             formulardaten.datum
         );
         this._eintraege.push(neuer_eintrag);
-        this._monatslistensammlung.eintrag_hinzufuegen(eintrag);
+        this._monatslistensammlung.eintrag_hinzufuegen(neuer_eintrag);
         this._gesamtbilanz.aktualisieren(this._eintraege);
     }
 
