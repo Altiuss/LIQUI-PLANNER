@@ -8,7 +8,7 @@ class Haushaltsbuch {
         this._eingabeformular = new Eingabeformular();
         this._monatslistensammlung = new Monatslistensammlung();
         this._gesamtbilanz = new Gesamtbilanz();
-    }
+       }
 
     eintrag_hinzufuegen(formulardaten) {
         let neuer_eintrag = new Eintrag(
