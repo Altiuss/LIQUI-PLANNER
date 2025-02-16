@@ -4,6 +4,8 @@ class Haushaltsbuch {
 
     constructor() {
         this._eintraege = [];
+        this._navigationsleiste = new Navigationsleiste();
+        this._eingabeformular = new Eingabeformular();
         this._monatslistensammlung = new Monatslistensammlung();
         this._gesamtbilanz = new Gesamtbilanz();
     }
@@ -34,7 +36,9 @@ class Haushaltsbuch {
 
     }
 
-    anzeigen() {
+    start() {
+        this._navigationsleiste.anzeigen();
+        this._eingabeformular.anzeigen();
         this._monatslistensammlung.anzeigen();
         this._gesamtbilanz.anzeigen();
 

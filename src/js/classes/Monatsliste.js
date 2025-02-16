@@ -3,7 +3,6 @@
 class Monatsliste {
 
     constructor(jahr, monat) {
-
         this._jahr = jahr;
         this._monat = monat;
         this._eintraege = [];
@@ -44,7 +43,6 @@ class Monatsliste {
                     return 1;
                 }
             }
-
         })
     }
 
@@ -53,11 +51,9 @@ class Monatsliste {
         this._eintraege.forEach(eintrag => {
             if (eintrag._typ === "einnahme") {
                 monatsbilanz += eintrag.betrag();
-                console.log("einnahme")
             } else {
                 if (eintrag._typ === "ausgabe") {
                     monatsbilanz -= eintrag.betrag();
-                    console.log("ausgabe")
                 }
             }
         });
@@ -102,9 +98,7 @@ class Monatsliste {
 
     _aktualisieren() {
         this._eintraege_sortieren();
-        console.log("aktualisieren")
         this._bilanzieren();
-        console.log("bilanzieren")
         this._html = this._html_generieren();
     }
 
