@@ -1,13 +1,35 @@
+/**
+ * Das Modul "Eingabeformular" ist fur das Eingabeformular der Anwendung zustandig.
+ * @module classes/Eingabeformular
+ */
+
+
 import Fehler from "./Fehler.js";
 import haushaltsbuch from "./../main.js";
 
+/**
+ * Die Klasse "Eingabeformular" stellt alle Eigenschaften
+ * und Methoden des Eingabeformulars(inkl. HTML und Events) zur Verfugung.
+ */
+
 export default class Eingabeformular {
+
+    /**
+     * Der Konstruktor generiert bei Instanzierung der Klasse "Eingabeformular"
+     * das HTML des Eingabeformulars.
+     * @prop {Element} _html - das HTML des Eingabesformulars.
+     */
 
     constructor() {
         this._html = this._html_generieren();
+}
 
-
-    }
+/**
+ * Diese private Methode extrahiert die im Eingabeformular eingegebebenen Daten aus
+ * dem Submit-Event des Eingabeformulars.
+ * @param {Event} e - das Submit-Event des Eingabesformular
+ * @returns {Objekt} - einfaches Objekt mit den Rohdaten des Eingabesformulars
+ */
 
     _formulardaten_holen(e) {
         return {
