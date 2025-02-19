@@ -1,6 +1,7 @@
-"use strict";
+import Fehler from "./Fehler.js";
+import haushaltsbuch from "./../main.js";
 
-class Eingabeformular {
+export default class Eingabeformular {
 
     constructor() {
         this._html = this._html_generieren();
@@ -86,10 +87,10 @@ class Eingabeformular {
                     title="Titel des Eintrags" >
                 <input type="radio" id="einnahme" name="typ" value="einnahme" form="eingabeformular"
                     title="Typ des Eintrags">
-                <label for="einnahme" title="Typ des Eintrags">Einnahme</label>
+                <label for="einnahme" title="Typ des Eintrags" style="cursor: pointer" >Einnahme</label>
                 <input type="radio" id="ausgabe" name="typ" value="ausgabe" form="eingabeformular"
                     title="Typ des Eintrags" checked>
-                <label for="ausgabe" title="Typ des Eintrags">Ausgabe</label>
+                <label for="ausgabe" title="Typ des Eintrags" style="cursor: pointer">Ausgabe</label>
             </div>
         </div>
     <div class="eingabeformular-zeile">
